@@ -1,0 +1,17 @@
+---
+namespace: community
+name: wordpress-role
+version: 1.0.0
+readme: README.md
+authors:
+  - El Hadji Diawara
+description: Install wordpress and mariadb in docker container
+license_file: COPYING
+tags:
+  - v1
+repository: https://github.com/itirenegad/wordpress_role.git
+documentation: https://github.com/itirenegad/wordpress_role.git
+homepage: https://github.com/itirenegad/wordpress_role.git
+issues: https://github.com/itirenegad/wordpress_role.git
+build_ignore:
+  - .gitignore

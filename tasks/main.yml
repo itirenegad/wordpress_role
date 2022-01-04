@@ -1,0 +1,46 @@
+---
+# tasks file for wordpress_role
+
+- name: "Create docker network"
+  docker_network:
+    name: "{{ wordpress_network }}"
+
+- name: "Start MariaDB container"
+  docker_container:
+    name: "{{ mariadb_container_name }}"
+    image: "{{ mariadb_container_name }}"
+    state: "started"
+    env:
+      MYSQL_ROOT_PASSWORD: "{{ mariadb_root_password }}"
+      MYSQL_DATABASE: "{{ mariadb_database }}"
+      MYSQL_USER: "{{ mariadb_user }}"
+      MYSQL_PASSWORD: "{{ mariadb_password }}"
+    ports:
+      - "{{ mariadb_port }}"
+    volumes:
+      - mariadbData:/var/lib/mariadb
+
+- name: "Start Wordpress container"
+  docker_container:
+    name: "{{ wordpress_container_name }}"
+    image: "{{ wordpress_container_name }}"
+    state: "started"
+    env:
+      WORDPRESS_DB_HOST: mariadb_host
+      WORDPRESS_DB_USER: "{{ mariadb_user }}"
+      WORDPRESS_DB_PASSWORD: "{{ mariadb_password }}"
+      WORDPRESS_DB_NAME: "{{ mariadb_database }}"
+    ports:
+      - 80:80        
+    links:
+      - "{{ mariadb_container_name }}:mariadb_host"
+    volumes:
+      - wordpressData:/var/www/html
+
+- name: "Append Wordpress to container network"
+  docker_network:
+    name: "{{ wordpress_network }}"
+    connected:
+      - "{{ mariadb_container_name }}"
+      - "{{ wordpress_container_name }}"
+    appends: "yes"

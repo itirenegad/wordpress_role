@@ -1,0 +1,14 @@
+---
+# defaults file associated to wordpress role
+wordpress_version: latest
+wordpress_container_name: wordpress
+wordpress_network: wordpress
+
+# Docker mysql settings
+mariadb_version: latest
+mariadb_container_name: mysql
+mariadb_port: 3306
+mariadb_root_password: root
+mariadb_database: db_wordpress
+mariadb_user: wordpress
+mariadb_password: WordpressPa$$w0rd
