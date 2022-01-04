@@ -24,14 +24,14 @@
     image: "{{ wordpress_container_name }}"
     state: "started"
     env:
-      WORDPRESS_DB_HOST: "{{ mariadb_host }}"
+      WORDPRESS_DB_HOST: "mariadb_host"
       WORDPRESS_DB_USER: "{{ mariadb_user }}"
       WORDPRESS_DB_PASSWORD: "{{ mariadb_password }}"
       WORDPRESS_DB_NAME: "{{ mariadb_database }}"
     ports:
       - 80:80        
     links:
-      - "{{ mariadb_container_name }}:{{ mariadb_host }}"
+      - "{{ mariadb_container_name }}:mariadb_host"
     volumes:
       - "wordpressData:/var/www/html"
 
