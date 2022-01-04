@@ -1,9 +1,7 @@
 ---
 # tasks file for wordpress_role
-
-- name: "Create docker network"
-  docker_network:
-    name: "{{ wordpress_network }}"
+# First let's run conatiners with wordpress and MySQL (mariadb) images.
+# All variables using here can be found in the default repertory
 
 - name: "Start MariaDB container"
   docker_container:
@@ -26,16 +24,22 @@
     image: "{{ wordpress_container_name }}"
     state: "started"
     env:
-      WORDPRESS_DB_HOST: mariadb_host
+      WORDPRESS_DB_HOST: "{{ mariadb_host }}"
       WORDPRESS_DB_USER: "{{ mariadb_user }}"
       WORDPRESS_DB_PASSWORD: "{{ mariadb_password }}"
       WORDPRESS_DB_NAME: "{{ mariadb_database }}"
     ports:
       - 80:80        
     links:
-      - "{{ mariadb_container_name }}:mariadb_host"
+      - "{{ mariadb_container_name }}:{{ mariadb_host }}"
     volumes:
-      - wordpressData:/var/www/html
+      - "wordpressData:/var/www/html"
+
+# End then let's create a docker network and added wordpress application
+
+- name: "Create docker network"
+  docker_network:
+    name: "{{ wordpress_network }}"
 
 - name: "Append Wordpress to container network"
   docker_network:
