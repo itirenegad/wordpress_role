@@ -1,8 +1,10 @@
 ---
-# tasks file for wordpress_role
+# Tasks aimed to run WordPress and MariaDB, we create alose a docker network to connect containers one another.
 # First let's run conatiners with wordpress and MySQL (mariadb) images.
-# All variables using here can be found in the default repertory
+# All variables using here can be found in the default directory.
 
+# Running mariadb container with ansible modules docker_conatiner.
+# Notify that to enable remote host to manage containers lifecycle, we need to use a docker role with install all dependencies. 
 - name: "Start MariaDB container"
   docker_container:
     name: "{{ mariadb_container_name }}"
@@ -17,7 +19,8 @@
       - "{{ mariadb_port }}"
     volumes:
       - mariadbData:/var/lib/mariadb
-
+      
+# Running wordpress container with ansible modules docker_conatiner.
 - name: "Start Wordpress container"
   docker_container:
     name: "{{ wordpress_container_name }}"
@@ -36,7 +39,6 @@
       - "wordpressData:/var/www/html"
 
 # End then let's create a docker network and added wordpress application
-
 - name: "Create docker network"
   docker_network:
     name: "{{ wordpress_network }}"
