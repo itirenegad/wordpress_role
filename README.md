@@ -23,18 +23,18 @@ Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-  hosts:
-    - worker02 # Ubuntu
-    - worker03 # CentOS
+- hosts:
+  - worker01 # Ubuntu
+  - worker02 # CentOS
   roles:
-    - docker_role
-    - wordpress_role
-    
+     - role: itirenegad.docker_role
+     - role: itirenegad.wordpress-role
+     
+     
 License
 -------
-
-BSD
 license (GPL-2.0-or-later, MIT, etc)
+
 ------------------
 
 Learning from Sado Frazer
