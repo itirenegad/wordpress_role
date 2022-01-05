@@ -23,12 +23,12 @@ Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-- hosts:
-  - worker02 # Ubuntu
-  - worker03 # CentOS
+  hosts:
+    - worker02 # Ubuntu
+    - worker03 # CentOS
   roles:
-    - { role: itirenegad.docker_role}
-    - { role: itirenegad.wordpress_role}
+    - docker_role
+    - wordpress_role
 
 License
 -------
