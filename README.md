@@ -29,7 +29,7 @@ Including an example of how to use your role (for instance, with variables passe
   roles:
     - docker_role
     - wordpress_role
-
+    
 License
 -------
 
