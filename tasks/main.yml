@@ -1,5 +1,6 @@
 ---
-- name: "Start MariaDB container"
+# First we start with containers creation 
+- name: "Create and start MariaDB container"
   docker_container:
     name: "{{ mariadb_container_name }}"
     image: "{{ mariadb_container_name }}"
@@ -15,7 +16,7 @@
       - "mariadbData:/var/lib/mariadb"
 
 # Running wordpress container with ansible modules docker_conatiner.
-- name: "Start Wordpress container"
+- name: "Create and start Wordpress container"
   docker_container:
     name: "{{ wordpress_container_name }}"
     image: "{{ wordpress_container_name }}"
@@ -26,7 +27,7 @@
       WORDPRESS_DB_PASSWORD: "{{ mariadb_password }}"
       WORDPRESS_DB_NAME: "{{ mariadb_database }}"
     ports:
-      - "80:80"        
+      - "8080:80"        
     links:
       - "{{ mariadb_container_name }}:mariadb_host"
     volumes:
